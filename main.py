@@ -1,9 +1,8 @@
 import tensorflow as tf
-import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Dados existentes
+# Base de Dados
 celsius = np.array([-40, -10,  0,  8, 15, 22,  38], dtype=float)
 fahrenheit = np.array([-40,  14, 32, 46.4, 59, 71.6, 100], dtype=float)
 
@@ -18,9 +17,7 @@ fahrenheit_random = celsius_random * 1.8 + 32
 celsius = np.concatenate((celsius, celsius_random))
 fahrenheit = np.concatenate((fahrenheit, fahrenheit_random))
 
-# Definindo e treinando o modelo (código original)
-tf.get_logger().setLevel('ERROR')
-
+# Definindo e treinando o modelo
 l1 = tf.keras.layers.Dense(units=1, input_shape=[1])
 model = tf.keras.Sequential([l1])
 model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(0.1))
@@ -28,7 +25,7 @@ model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(0.1)
 historico = model.fit(celsius, fahrenheit, epochs=500, verbose=False)
 print("Treino Finalizado!")
 
-# Visualização do treinamento (código original)
+# Visualização do treinamento
 losses = historico.history['loss']
 epochs = range(1, len(losses) + 1)
 
@@ -39,7 +36,7 @@ plt.ylabel('Loss')
 plt.legend()
 plt.show()
 
-# Fazendo previsão e mostrando os pesos da camada (código original)
+# Fazendo previsão e mostrando os pesos da camada
 input_celsius = float(input("Digite a temperatura em Celsius para a previsão: "))
 previsao = model.predict([input_celsius])
 print("A previsão em Fahrenheit é:", previsao)
